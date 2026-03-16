@@ -1,1 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>St. Louis New Construction Homes</title>
+  <meta name="description" content="Discover new construction homes across the St. Louis Metro area with local guidance, builder insights, and personalized support." />
+  <style>
+    :root {
+      --bg: #f7f7f5;
+      --surface: #ffffff;
+      --text: #111111;
+      --muted: #5f5f5f;
+      --line: #dcdcdc;
+      --accent: #111111;
+      --soft: #efefef;
+      --max: 1180px;
+      --radius: 20px;
+      --shadow: 0 18px 40px rgba(0,0,0,.07);
+    }
 
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(247,247,245,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,.05);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      gap: 18px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-size: .95rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+      font-size: .95rem;
+    }
+
+    .button, button {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .18s ease, opacity .18s ease;
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--text);
+    }
+
+    .button:hover, button:hover { transform: translateY(-1px); opacity: .95; }
+
+    .hero {
+      padding: 72px 0 48px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      font-size: .85rem;
+      margin-bottom: 16px;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.1;
+      margin: 0 0 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 4.8vw, 4.9rem);
+      letter-spacing: -.03em;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 3vw, 2.9rem);
+      letter-spacing: -.02em;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 58ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .hero-card,
+    .card,
+    .community-card,
+    .process-step,
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 26px;
+    }
+
+    .hero-image {
+      min-height: 440px;
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(0,0,0,.08), rgba(0,0,0,.02)),
+        url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80') center/cover;
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .stat {
+      padding: 14px;
+      border-radius: 16px;
+      background: var(--soft);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.15rem;
+      margin-bottom: 4px;
+    }
+
+    section {
+      padding: 34px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .grid-3, .grid-4, .process-grid, .contact-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .process-grid { grid-template-columns: repeat(4, 1fr); }
+    .contact-grid { grid-template-columns: 1fr 1fr; align-items: start; }
+
+    .card, .community-card, .process-step {
+      padding: 24px;
+    }
+
+    .card p, .community-card p, .process-step p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .community-card .tag {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: .84rem;
+      background: var(--soft);
+      padding: 7px 11px;
+      border-radius: 999px;
+    }
+
+    .process-step .number {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--text);
+      color: #fff;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: .95rem;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      font: inherit;
+      background: #fff;
+    }
+
+    textarea { min-height: 120px; resize: vertical; }
+
+    .contact-card {
+      padding: 28px;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: .92rem;
+      margin-top: 10px;
+    }
+
+    .footer {
+      padding: 26px 0 50px;
+      color: var(--muted);
+      font-size: .93rem;
+    }
+
+    .disclaimer {
+      margin-top: 12px;
+      font-size: .84rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .grid-3,
+      .grid-4,
+      .process-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero { padding-top: 42px; }
+      .mini-stats { grid-template-columns: 1fr; }
+      .section-head { align-items: start; flex-direction: column; }
+      .nav { align-items: start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#top">St. Louis New Construction</a>
+      <div class="nav-links">
+        <a href="#communities">Communities</a>
+        <a href="#benefits">Why New Construction</a>
+        <a href="#process">The Process</a>
+        <a href="#contact">Get Updates</a>
+        <a class="button" href="#contact">Schedule a Consultation</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Local Guidance for New Construction Across the St. Louis Metro</div>
+          <h1>Find the right builder, floor plan, and community without going it alone.</h1>
+          <p class="lead">Your go-to source for new construction homes in St. Louis, St. Charles, Jefferson County, and surrounding Missouri communities. Compare builders, explore neighborhoods, and get expert representation from first visit to closing day.</p>
+          <div class="hero-actions">
+            <a class="button" href="#contact">Get Builder & Community Updates</a>
+            <a class="button secondary" href="#communities">Explore Communities</a>
+          </div>
+          <div class="mini-stats">
+            <div class="stat">
+              <strong>Builder Guidance</strong>
+              Compare communities, incentives, and fit.
+            </div>
+            <div class="stat">
+              <strong>Local Expertise</strong>
+              St. Louis Metro knowledge with boots-on-the-ground support.
+            </div>
+            <div class="stat">
+              <strong>Buyer Advocacy</strong>
+              Representation from contract to walkthrough.
+            </div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-image" aria-label="New construction home exterior"></div>
+          <p class="note">Tip: Replace this stock image with one of your own new construction photos or a branded lifestyle image.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="communities">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Featured communities and growth areas</h2>
+            <p class="lead">Use this section to spotlight the builders and areas you want to be known for. These are placeholders you can customize.</p>
+          </div>
+        </div>
+        <div class="grid-4">
+          <article class="community-card">
+            <h3>St. Charles County</h3>
+            <p>Highlight communities in O’Fallon, Lake Saint Louis, Wentzville, Dardenne Prairie, and surrounding areas.</p>
+            <span class="tag">Family-friendly growth</span>
+          </article>
+          <article class="community-card">
+            <h3>Jefferson County</h3>
+            <p>Showcase opportunities for buyers wanting more land, value, and newer homes south of the city.</p>
+            <span class="tag">Space + value</span>
+          </article>
+          <article class="community-card">
+            <h3>West St. Louis County</h3>
+            <p>Feature select higher-end or niche new construction options in premium corridor locations.</p>
+            <span class="tag">Luxury options</span>
+          </article>
+          <article class="community-card">
+            <h3>Custom Build Opportunities</h3>
+            <p>For buyers exploring lots, custom builders, and semi-custom floor plans tailored to their lifestyle.</p>
+            <span class="tag">Build from the ground up</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="benefits">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Why buyers love new construction</h2>
+            <p class="lead">This section positions you as the new construction specialist while educating buyers on the value of building new.</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Modern layouts</h3>
+            <p>Open floor plans, larger kitchens, better storage, and flexible spaces designed for real life.</p>
+          </article>
+          <article class="card">
+            <h3>Lower maintenance</h3>
+            <p>Everything is brand new, which can mean fewer repairs, better energy efficiency, and stronger warranty coverage.</p>
+          </article>
+          <article class="card">
+            <h3>Personalization</h3>
+            <p>Depending on build stage, buyers may choose finishes, structural options, upgrades, and design details.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>The new construction buying process</h2>
+            <p class="lead">A simple way to explain your value and make buyers feel guided instead of overwhelmed.</p>
+          </div>
+        </div>
+        <div class="process-grid">
+          <article class="process-step">
+            <div class="number">1</div>
+            <h3>Clarify the vision</h3>
+            <p>Define budget, timing, location, builder preferences, and must-have features before touring communities.</p>
+          </article>
+          <article class="process-step">
+            <div class="number">2</div>
+            <h3>Tour communities</h3>
+            <p>Compare builders, floor plans, lots, incentives, upgrade paths, and long-term resale appeal.</p>
+          </article>
+          <article class="process-step">
+            <div class="number">3</div>
+            <h3>Write with strategy</h3>
+            <p>Review contract details, pricing structure, deadlines, and builder-specific fine print before signing.</p>
+          </article>
+          <article class="process-step">
+            <div class="number">4</div>
+            <h3>Stay supported</h3>
+            <p>From design selections to inspections, walkthroughs, and closing day, you have an advocate the whole way through.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container contact-grid">
+        <div class="contact-card">
+          <h2>Get new construction updates</h2>
+          <p class="lead">Invite buyers to request community updates, builder lists, move-in ready homes, or a one-on-one consultation.</p>
+          <form name="new-construction-leads" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="new-construction-leads" />
+            <div>
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Your name" required />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+            <div>
+              <label for="interest">What are you looking for?</label>
+              <select id="interest" name="interest">
+                <option>Move-in ready new construction</option>
+                <option>Build from the ground up</option>
+                <option>Builder / community comparison</option>
+                <option>Downsizing options</option>
+                <option>Luxury new construction</option>
+              </select>
+            </div>
+            <div>
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell me the area, budget, timing, and anything else that matters most."></textarea>
+            </div>
+            <button type="submit">Send My Request</button>
+          </form>
+          <p class="note">This form is set up to work easily on Netlify. If you host elsewhere, you can connect it to another form service later.</p>
+        </div>
+
+        <div class="contact-card">
+          <h3>Make this page yours</h3>
+          <p>Before launch, customize these items:</p>
+          <ul>
+            <li>Add your name, brokerage, phone number, and email.</li>
+            <li>Replace stock photos with your own brand photography.</li>
+            <li>Swap placeholder communities for the builders and neighborhoods you want to feature.</li>
+            <li>Add testimonials, lead magnets, or a downloadable new construction guide.</li>
+            <li>Later, connect IDX or a builder feed if you want live listings or home-search functionality.</li>
+          </ul>
+          <p class="disclaimer">Brokerage, MLS, and fair housing compliance language should be reviewed before launch, especially if you add property search, builder incentives, or listing data.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <strong>St. Louis New Construction</strong><br/>
+      Replace this line with your business name, contact details, and required brokerage disclosures.
+    </div>
+  </footer>
+</body>
+</html>
